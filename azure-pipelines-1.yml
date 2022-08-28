@@ -1,0 +1,25 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'Azure subscription 1(25572d64-ad7d-4588-b6d3-0b9e19e1e5ae)'
+    subscriptionId: '25572d64-ad7d-4588-b6d3-0b9e19e1e5ae'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'azure-demo-rg'
+    location: 'Canada Central'
+    templateLocation: 'URL of the file'
+    csmFileLink: 'https://raw.githubusercontent.com/Mounika-kunam/ARM-Templates-Example/main/CreateWebApp/azuredeploy.json'
+    overrideParameters: '-projectName testarmpj'
+    deploymentMode: 'Incremental'
+    deploymentName: 'testdeployment'
